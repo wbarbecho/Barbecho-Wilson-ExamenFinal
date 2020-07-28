@@ -26,6 +26,7 @@
 <h:body>
 
 
+	<h:inputHidden  value="#{pacienteBean.list}"></h:inputHidden >
 	<h:form id="formularioBusqueda">
 		<li>Ingrese Cedula Cliente <h:inputText id="idApellido">
 				<f:ajax listener="#{citaMedicaBean.cambiarApellidoAjax}"
@@ -68,7 +69,8 @@
 
 	<h:form>
 		Seleccione Fecha:
-<p:calendar id="dateTimeDe" value="#{citaMedicaBean.fecha}" locale="de" pattern="dd.MM.yyyy HH:mm" />
+<p:calendar id="dateTimeDe" value="#{citaMedicaBean.fecha}" locale="de"
+			pattern="dd.MM.yyyy HH:mm" />
 		<h:commandButton value="Agregar Cita" type="submit"
 			action="#{citaMedicaBean.add}" />
 	</h:form>
