@@ -6,9 +6,9 @@
 		<!-- -->
 		<jta-data-source>jdbc/examen</jta-data-source>
 		<class>ec.edu.ups.modelo.Paciente</class>
-		<class>ec.edu.ups.modelo.CitaMedica</class>
 		<class>ec.edu.ups.modelo.SignoVitalCabecera</class>
 		<class>ec.edu.ups.modelo.SignoVitalDetalle</class>
+		<class>ec.edu.ups.modelo.CitaMedica</class>
 
 	
 		<properties>

@@ -4,14 +4,16 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import ec.edu.ups.modelo.SignoVitalCabecera;
+
 @Stateless
-public class SignoVitalCabeceraFacade extends AbstractFacade<SignoVitalCabeceraFacade> {
+public class SignoVitalCabeceraFacade extends AbstractFacade<SignoVitalCabecera> {
 
 	@PersistenceContext(unitName = "repasos")
 	private EntityManager em;
 
 	public SignoVitalCabeceraFacade() {
-		super(SignoVitalCabeceraFacade.class);
+		super(SignoVitalCabecera.class);
 	}
 
 	@Override
