@@ -9,7 +9,7 @@ import ec.edu.ups.modelo.Paciente;
 @Stateless
 public class PacienteFacade extends AbstractFacade<Paciente> {
 
-	@PersistenceContext(unitName = "repasos")
+	@PersistenceContext(unitName = "Examen")
 	private EntityManager em;
 
 	public PacienteFacade() {

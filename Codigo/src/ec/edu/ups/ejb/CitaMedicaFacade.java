@@ -9,7 +9,7 @@ import ec.edu.ups.modelo.CitaMedica;
 @Stateless
 public class CitaMedicaFacade extends AbstractFacade<CitaMedica> {
 
-	@PersistenceContext(unitName = "repasos")
+	@PersistenceContext(unitName = "Examen")
 	private EntityManager em;
 
 	public CitaMedicaFacade() {

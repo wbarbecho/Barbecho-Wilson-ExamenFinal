@@ -9,7 +9,7 @@ import ec.edu.ups.modelo.SignoVitalDetalle;
 @Stateless
 public class SignoVitalDetalleFacade extends AbstractFacade<SignoVitalDetalle> {
 
-	@PersistenceContext(unitName = "repasos")
+	@PersistenceContext(unitName = "Examen")
 	private EntityManager em;
 
 	public SignoVitalDetalleFacade() {
