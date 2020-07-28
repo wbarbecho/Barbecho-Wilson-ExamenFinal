@@ -24,7 +24,6 @@ public class SignoVitalCabecera implements Serializable {
 	private CitaMedica citaMedica;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "signoVitalCabecera")
 	private List<SignoVitalDetalle> SignosVitalesDetalles;
-
 	//
 	private double presion;
 	private double frecuenciaCardiaca;

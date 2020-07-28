@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Facturas</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	</meta>
+	<title>Lumino - Dashboard</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="css/font-awesome.min.css" rel="stylesheet"></link>
+	<link href="css/datepicker3.css" rel="stylesheet"></link>
+	<link href="css/styles.css" rel="stylesheet"></link>
+
+	<!--Custom Font-->
+	<link
+		href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i"
+		rel="stylesheet"></link>
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+</h:head>
+<h:body>
+
+	<h:form id="formularioBusqueda">
+		<li>Ingrese apellido cliente <h:inputText id="idApellido">
+				<f:ajax listener="#{facturaCabBean.cambiarApellidoAjax}"
+					render="formularioBusqueda:facturasBusqueda" />
+			</h:inputText>
+		</li>
+
+		<h:dataTable value="#{facturaCabBean.buscarFacturaCliente()}" var="c"
+			styleClass="tabla" headerClass="cabeceraTabla"
+			rowClasses="filaPar,filaImpar" class="table" id="facturasBusqueda">
+
+
+
+			<h:column>
+				<f:facet name="header">Codigo</f:facet>
+				<h:outputText value="#{c.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Fecha</f:facet>
+				<h:outputText value="#{c.fecha}">
+					<f:convertDateTime dateStyle="long" timeZone="EST" type="both" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Cliente</f:facet>
+				<h:outputText
+					value="#{c.cliente.getApellido()} #{c.cliente.getNombre()}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Bodega</f:facet>
+				<h:outputText value="#{c.bodega.getNombre()}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Estado</f:facet>
+				<h:outputLabel value="DISPONIBLE" rendered="#{c.estado == 'D'}" />
+				<h:outputLabel value="ANULADA" rendered="#{c.estado == 'A'}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Total</f:facet>
+				<h:outputText value="#{c.total}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Accion</f:facet>
+				<h:commandLink value="Anular Factura" rendered="#{c.estado == 'D'}"
+					action="#{facturaCabBean.anularFactura(c)}"
+					styleClass="btn btn-warning" />
+				<h:outputLabel value="No Dispolible" rendered="#{c.estado == 'A'}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Accion</f:facet>
+				<h:outputLink value="facturaDetalleJSF.xhtml"
+					styleClass="btn btn-primary">
+					<h:outputText value="Ver Factura" />
+					<f:param name="code" value="#{c.id}" />
+				</h:outputLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+
+	<!--/.main-->
+
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/chart.min.js"></script>
+	<script src="js/chart-data.js"></script>
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
+	<script src="js/custom.js"></script>
+
+</h:body>
+
+
+
+
+</html>
