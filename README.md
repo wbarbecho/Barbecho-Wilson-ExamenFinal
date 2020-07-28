@@ -1,2 +1,0 @@
-# Barbecho-Wilson-ExamenFinal
- 
