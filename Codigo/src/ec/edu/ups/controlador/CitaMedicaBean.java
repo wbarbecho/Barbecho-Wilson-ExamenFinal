@@ -1,6 +1,7 @@
 package ec.edu.ups.controlador;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,9 +9,14 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
+import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Named;
 
 import ec.edu.ups.ejb.CitaMedicaFacade;
+import ec.edu.ups.ejb.PacienteFacade;
 import ec.edu.ups.modelo.CitaMedica;
 import ec.edu.ups.modelo.Paciente;
 
@@ -23,9 +29,16 @@ public class CitaMedicaBean implements Serializable {
 
 	@EJB
 	private CitaMedicaFacade ejbCitaMedicaFacade;
-	private List<CitaMedica> list, listEstado, listRegistro;
+	private List<CitaMedica> list;
+	@EJB
+	private PacienteFacade ejbPacienteFacade;
+	private List<Paciente> listPacientes;
 	private Paciente paciente;
 	private Date fecha;
+	private FaceletContext faceletContext;
+	private Date hora;
+	private String formId;
+	private String cliApellido = "";
 
 	public CitaMedicaBean() {
 
@@ -37,7 +50,8 @@ public class CitaMedicaBean implements Serializable {
 		// this.apellido="Prueba",this.cedula= "000000",this.direccion= "Nuevo",
 		// this.correo="Cuenca",this.estado= 'A'));
 
-		listEstado = ejbCitaMedicaFacade.findAll();
+		list = ejbCitaMedicaFacade.findAll();
+		listPacientes = ejbPacienteFacade.findAll();
 		// listEstado = ejbClienteFacade.readCliente('A');
 	}
 
@@ -49,8 +63,37 @@ public class CitaMedicaBean implements Serializable {
 		cm.setFecha(fecha);
 		cm.setPaciente(paciente);
 		cm.setSignosVitalesCabecera(null);
-
+		ejbCitaMedicaFacade.create(cm);
+		System.out.println(cm);
 		return null;
+	}
+
+	public void cambiarCodigo() {
+		faceletContext = (FaceletContext) FacesContext.getCurrentInstance().getAttributes()
+				.get(FaceletContext.FACELET_CONTEXT_KEY);
+		formId = (String) faceletContext.getAttribute("formId");
+	}
+
+	public void cambiarApellidoAjax(AjaxBehaviorEvent event) {
+		cliApellido = (String) ((UIOutput) event.getSource()).getValue();
+	}
+
+	public List<Paciente> buscarPaciente() {
+		try {
+
+			List<Paciente> busquedas = new ArrayList<Paciente>();
+			for (Paciente paciente : listPacientes)
+				if (paciente.getCedula().equals(cliApellido))
+					busquedas.add(paciente);
+			if (busquedas.size() > 0)
+				this.paciente = busquedas.get(0);
+
+			return busquedas;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+
 	}
 
 	public Paciente getPaciente() {
@@ -63,6 +106,14 @@ public class CitaMedicaBean implements Serializable {
 
 	public Date getFecha() {
 		return fecha;
+	}
+
+	public Date getHora() {
+		return hora;
+	}
+
+	public void setHora(Date hora) {
+		this.hora = hora;
 	}
 
 	public void setFecha(Date fecha) {

@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Registar cita</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,16 +28,13 @@
 
 	<h:form id="formularioBusqueda">
 		<li>Ingrese Cedula Cliente <h:inputText id="idApellido">
-				<f:ajax listener="#{pacienteBean.cambiarApellidoAjax}"
+				<f:ajax listener="#{citaMedicaBean.cambiarApellidoAjax}"
 					render="formularioBusqueda:facturasBusqueda" />
 			</h:inputText>
 		</li>
-
-		<h:dataTable value="#{pacienteBean.buscarPaciente()}" var="c"
+		<h:dataTable value="#{citaMedicaBean.buscarPaciente()}" var="c"
 			styleClass="tabla" headerClass="cabeceraTabla"
 			rowClasses="filaPar,filaImpar" class="table" id="facturasBusqueda">
-
-
 			<h:column>
 				<f:facet name="header">Cedula</f:facet>
 				<h:outputText value="#{c.cedula}" />
@@ -62,44 +60,18 @@
 				<f:facet name="header">correo</f:facet>
 				<h:outputText value="#{c.correo}" />
 			</h:column>
-
 		</h:dataTable>
+
+
+
 	</h:form>
-
-
 
 	<h:form>
-		<h:dataTable value="#{pacienteBean.list}" var="c" styleClass="tabla"
-			headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar"
-			class="table">
-			<h:column>
-				<f:facet name="header">Cedula</f:facet>
-				<h:outputText value="#{c.cedula}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">nombres</f:facet>
-				<h:outputText value="#{c.nombres}">
-				</h:outputText>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Paciente</f:facet>
-				<h:outputText value="#{c.getApellidos()} #{c.getNombres()}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">telefono</f:facet>
-				<h:outputText value="#{c.telefono}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">direccion</f:facet>
-				<h:outputText value="#{c.direccion}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">correo</f:facet>
-				<h:outputText value="#{c.correo}" />
-			</h:column>
-		</h:dataTable>
+		Seleccione Fecha:
+<p:calendar id="dateTimeDe" value="#{citaMedicaBean.fecha}" locale="de" pattern="dd.MM.yyyy HH:mm" />
+		<h:commandButton value="Agregar Cita" type="submit"
+			action="#{citaMedicaBean.add}" />
 	</h:form>
-
 
 	<!--/.main-->
 
